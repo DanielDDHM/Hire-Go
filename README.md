@@ -1,27 +1,28 @@
 # Hire-Go
-App for connect clients and professionals.
+A platform to connect clients and professionals.
 
-Estrutura do projeto
-Nesse post já vamos deixar nossa estrutura inicial pronta, vamos separa da seguinte maneira:
+## Project Structure
+We will define our initial project structure as follows:
 
-cmd: Aqui vamos deixar nossos arquivos main.go, responsáveis por iniciar nossa aplicação.
-config: Vamos salvar algumas configs aqui, como envs, logs.
-internal: Aqui é onde vai ficar nossa regra de negócio
-internal/dto: Onde vamos determinar os tipos de dados que vamos permitir entrar na aplicação
-internal/handler: Essa pasta vai ficar nossos arquivos de roteamento (pode chamar de controller se preferir)
-internal/database: Essa pasta é onde vamos salvar tudo que for relacionado ao banco de dados
-internal/database/migrations: Vamos salvar nossas migrations aqui
-internal/database/queries: Onde vai ficar nossas queries sql de consulta ao banco
-internal/repository: Aqui onde vai ficar nossa camada de repositórios.
-internal/service: Por último, nossa camada de service, onde a regra de negócio vai ficar (pode chamar de usecase se preferir).
+- **cmd**: This will contain our `main.go` files, responsible for starting the application.
+- **config**: Configuration files, such as environment variables and logs, will be stored here.
+- **internal**: This is where the core business logic will reside.
+  - **internal/dto**: Here, we will define the data transfer objects that dictate the allowed data types for input in the application.
+  - **internal/handler**: This folder will contain routing files (you can refer to this as controllers if preferred).
+  - **internal/database**: Everything related to the database will be stored here.
+    - **internal/database/migrations**: This is where our database migration files will go.
+    - **internal/database/queries**: SQL queries for database interactions will be stored here.
+  - **internal/repository**: This will contain our repository layer.
+  - **internal/service**: Finally, our service layer, where the business logic resides (you can refer to this as use cases if preferred).
+  - **internal/utils**: This folder will store utility functions, helpers, and shared tools used throughout the application.
 
-Techs: 
-API Client: Gin
-ORM: Gorm
-DB: PostgreSQL
-Containization: Docker
-Container-orchestration: K8s
-Logger: zerolog
-Docs: Swaggo
-Migrations-db: golang-migrate
-Validator: go-playground/validator
+## Technologies
+- **API Framework**: Gin
+- **ORM**: Gorm
+- **Database**: PostgreSQL
+- **Containerization**: Docker
+- **Container Orchestration**: Kubernetes (K8s)
+- **Logger**: zerolog
+- **API Documentation**: Swaggo
+- **Database Migrations**: golang-migrate
+- **Validation**: go-playground/validator
