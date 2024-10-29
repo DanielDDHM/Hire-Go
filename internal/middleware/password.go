@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	utils "github.com/201-tech/Hire-Go/internal/utils"
+	"github.com/201-tech/Hire-Go/internal/utils"
 )
 
 type PasswordRequest struct {

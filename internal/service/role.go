@@ -3,7 +3,7 @@ package service
 import (
 	"net/http"
 
-	models "github.com/201-tech/Hire-Go/internal/dto"
+	"github.com/201-tech/Hire-Go/internal/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

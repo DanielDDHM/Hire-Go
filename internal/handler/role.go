@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/201-tech/Hire-Go/internal/middleware"
 	"github.com/201-tech/Hire-Go/internal/service"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -8,5 +9,8 @@ import (
 
 func Role(routes *gin.RouterGroup, db *gorm.DB) {
 	routes.POST("/", service.CreateRole(db))
-	routes.GET("/", service.GetRoles(db))
+
+	protectedRoutes := routes.Group("/")
+	protectedRoutes.Use(middleware.AuthMiddleware())
+	protectedRoutes.GET("/", service.GetRoles(db))
 }
