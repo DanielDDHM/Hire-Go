@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/201-tech/Hire-Go/internal/handler"
+	"github.com/201-tech/Hire-Go/internal/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"gorm.io/gorm"
@@ -40,7 +41,12 @@ func (s *Server) Run(db *gorm.DB) {
 			})
 		})
 		handler.User(v1.Group("/user"), db)
-		handler.Role(v1.Group("/role"), db)
+
+		roleGroup := v1.Group("/role")
+		roleGroup.Use(middleware.AuthMiddleware())
+		handler.Role(roleGroup, db)
+
+		handler.Auth(v1.Group("/auth"), db)
 	}
 	log.Print("Server is on port:", s.port)
 	log.Fatal(router.Run(":" + s.port))
