@@ -13,27 +13,21 @@ func CreateUser(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var user models.User
 
-		if err := c.Bind(&user); err != nil {
-			c.JSON(http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-			return
-		}
-
-		if validationErr := validate.Struct(&user); validationErr != nil {
-			c.JSON(http.StatusBadRequest, map[string]interface{}{"error": validationErr.Error()})
+		if !utils.BindAndValidate(c, &user) {
 			return
 		}
 
 		hashedPassword, err := utils.HashPassword(user.Password)
 
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, map[string]interface{}{"error": "Failed to hash password"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
 			return
 		}
 
 		user.Password = hashedPassword
 
 		if err := db.Create(&user).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -44,11 +38,6 @@ func CreateUser(db *gorm.DB) gin.HandlerFunc {
 func GetUsers(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var users []models.User
-
-		if db == nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database not initialized"})
-			return
-		}
 
 		if err := db.Find(&users).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
