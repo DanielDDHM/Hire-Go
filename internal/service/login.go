@@ -24,12 +24,13 @@ func LoginUser(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		if !utils.CheckPasswordHash(req.Password, user.Password) {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Incorrect password", "location": "CheckPasswordHash"})
+		_, err := utils.CheckPasswordHash(req.Password, user.Password)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error(), "location": "CheckPasswordHash"})
 			return
 		}
 
-		token, err := middleware.GenerateJWT(uint(user.Id))
+		token, err := middleware.GenerateJWT(&user)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "GenerateJWT"})
 			return
