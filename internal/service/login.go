@@ -31,7 +31,7 @@ func LoginUser(db *gorm.DB) gin.HandlerFunc {
 
 		token, err := middleware.GenerateJWT(uint(user.Id))
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token", "location": "GenerateJWT"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "GenerateJWT"})
 			return
 		}
 
