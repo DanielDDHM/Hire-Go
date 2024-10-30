@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/201-tech/Hire-Go/internal/models"
+	"github.com/201-tech/Hire-Go/internal/utils"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -12,18 +13,12 @@ func CreateRole(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var role models.Role
 
-		if err := c.Bind(&role); err != nil {
-			c.JSON(http.StatusBadRequest, map[string]interface{}{"error": err.Error(), "location": "bind"})
-			return
-		}
-
-		if validationErr := validate.Struct(&role); validationErr != nil {
-			c.JSON(http.StatusBadRequest, map[string]interface{}{"error": validationErr.Error(), "location": "validation"})
+		if !utils.BindAndValidate(c, &role) {
 			return
 		}
 
 		if err := db.Create(&role).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, map[string]interface{}{"error": err.Error(), "location": "db"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "db"})
 			return
 		}
 
@@ -35,13 +30,8 @@ func GetRoles(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var roles []models.Role
 
-		if db == nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database not initialized"})
-			return
-		}
-
 		if err := db.Find(&roles).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "db"})
 			return
 		}
 
