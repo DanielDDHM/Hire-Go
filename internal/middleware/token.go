@@ -8,6 +8,7 @@ import (
 	"github.com/DanielDDHM/Hire-Go/internal/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
+	"gorm.io/gorm"
 )
 
 func getJwtKey() ([]byte, error) {
@@ -39,7 +40,7 @@ func GenerateJWT(user *models.User) (string, error) {
 	return token.SignedString(jwtKey)
 }
 
-func DecodeToken(tokenString string) (interface{}, error) {
+func DecodeToken(tokenString string, db *gorm.DB) (interface{}, error) {
 	jwtKey, err := getJwtKey()
 
 	if err != nil {
@@ -59,6 +60,12 @@ func DecodeToken(tokenString string) (interface{}, error) {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if user, exists := claims["user"]; exists {
+			var userFind models.User
+
+			if err := db.First(&userFind).Error; err != nil {
+				return nil, fmt.Errorf("user not exists")
+			}
+
 			return user, nil
 		}
 		return nil, fmt.Errorf("user not found on Token")

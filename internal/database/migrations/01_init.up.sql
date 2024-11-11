@@ -17,3 +17,7 @@ CREATE TABLE Users (
     updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
+
+INSERT INTO Roles (name, description)
+SELECT 'Admin', 'Administrator role with full access'
+WHERE NOT EXISTS (SELECT 1 FROM Roles WHERE name = 'admin');

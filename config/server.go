@@ -41,7 +41,7 @@ func (s *Server) Run(db *gorm.DB) {
 			})
 		})
 		roleGroup := v1.Group("/role")
-		roleGroup.Use(middleware.AuthMiddleware())
+		roleGroup.Use(middleware.AuthMiddleware(db))
 
 		handler.User(v1.Group("/user"), db)
 		handler.Role(roleGroup, db)
