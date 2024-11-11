@@ -1,4 +1,4 @@
-module github.com/201-tech/Hire-Go
+module github.com/DanielDDHM/Hire-Go
 
 go 1.23.0
 

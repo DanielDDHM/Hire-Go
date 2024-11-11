@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/201-tech/Hire-Go/internal/models"
+	"github.com/DanielDDHM/Hire-Go/internal/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
 )
