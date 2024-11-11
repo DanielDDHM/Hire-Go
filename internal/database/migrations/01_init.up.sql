@@ -20,4 +20,4 @@ CREATE TABLE Users (
 
 INSERT INTO Roles (name, description)
 SELECT 'Admin', 'Administrator role with full access'
-WHERE NOT EXISTS (SELECT 1 FROM Roles WHERE name = 'admin');
+WHERE NOT EXISTS (SELECT 1 FROM Roles WHERE name = 'Admin');
