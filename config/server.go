@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/201-tech/Hire-Go/internal/handler"
-	"github.com/201-tech/Hire-Go/internal/middleware"
+	"github.com/DanielDDHM/Hire-Go/internal/handler"
+	"github.com/DanielDDHM/Hire-Go/internal/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"gorm.io/gorm"

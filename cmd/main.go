@@ -1,8 +1,8 @@
 package main
 
 import (
-	server "github.com/201-tech/Hire-Go/config"
-	"github.com/201-tech/Hire-Go/internal/database"
+	server "github.com/DanielDDHM/Hire-Go/config"
+	"github.com/DanielDDHM/Hire-Go/internal/database"
 )
 
 func main() {

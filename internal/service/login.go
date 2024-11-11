@@ -3,9 +3,9 @@ package service
 import (
 	"net/http"
 
-	"github.com/201-tech/Hire-Go/internal/middleware"
-	"github.com/201-tech/Hire-Go/internal/models"
-	"github.com/201-tech/Hire-Go/internal/utils"
+	"github.com/DanielDDHM/Hire-Go/internal/middleware"
+	"github.com/DanielDDHM/Hire-Go/internal/models"
+	"github.com/DanielDDHM/Hire-Go/internal/utils"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
