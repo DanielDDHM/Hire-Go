@@ -4,10 +4,12 @@ CREATE TABLE Models (
     name VARCHAR(255) NOT NULL,
     age INT,
     height DECIMAL(4,2),
-    measurements VARCHAR(50),
+    weight DECIMAL(4,2),
     bio TEXT,
     photos TEXT[],
-    portfolio_url VARCHAR(255),
+    address: VARCHAR(50),
+    city: VARCHAR(25),
+    country: VARCHAR(25),
     created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -15,8 +17,11 @@ CREATE TABLE Models (
 CREATE TABLE Bookers (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES Users(id) ON DELETE CASCADE,
-    company_name VARCHAR(255),
+    name VARCHAR(255),
     phone VARCHAR(20),
+    address: VARCHAR(50),
+    city: VARCHAR(25),
+    country: VARCHAR(25),
     created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

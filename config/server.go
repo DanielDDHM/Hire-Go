@@ -41,10 +41,10 @@ func (s *Server) Run(db *gorm.DB) {
 			})
 		})
 		roleGroup := v1.Group("/role")
-		roleGroup.Use(middleware.AuthMiddleware(db))
+		roleGroup.Use(middleware.AuthMiddleware(db, "Admin"))
+		handler.Role(roleGroup, db)
 
 		handler.User(v1.Group("/user"), db)
-		handler.Role(roleGroup, db)
 		handler.Auth(v1.Group("/auth"), db)
 	}
 	log.Print("Server is on port:", s.port)
