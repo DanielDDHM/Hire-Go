@@ -10,4 +10,5 @@ func User(routes *gin.RouterGroup, db *gorm.DB) {
 
 	routes.POST("/", service.CreateUser(db))
 	routes.GET("/", service.GetUsers(db))
+	routes.GET("/:id", service.GetUserByID(db))
 }
