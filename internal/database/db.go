@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -14,7 +13,7 @@ func GetDsn() string {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Print("Error When Reload .env file")
+		fmt.Print("Error When Reload .env file")
 	}
 
 	user := os.Getenv("DB_USER")
@@ -32,32 +31,23 @@ func GetDsn() string {
 	return dsn
 }
 
-func ConnectDB() *gorm.DB {
+func ConnectDB() (*gorm.DB, error) {
 	dsn := GetDsn()
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
+		return nil, fmt.Errorf("erro ao conectar ao banco de dados: %v", err)
 	}
 
 	sqlDB, err := db.DB()
 	if err != nil {
-		log.Fatalf("Erro ao obter *sql.DB: %v", err)
+		return nil, fmt.Errorf("erro ao obter *sql.DB: %v", err)
 	}
 
 	if err := sqlDB.Ping(); err != nil {
-		log.Fatalf("Erro ao pingar o banco de dados: %v", err)
+		return nil, fmt.Errorf("erro ao pingar o banco de dados: %v", err)
 	}
 
-	log.Print("Db Connected")
-
-	// defer func() {
-	// 	sqlDB, err := db.DB()
-	// 	if err != nil {
-	// 		log.Fatalf("Erro ao obter *sql.DB para fechamento: %v", err)
-	// 	}
-	// 	sqlDB.Close()
-	// }()
-
-	return db
+	fmt.Print("Db Connected")
+	return db, nil
 }
