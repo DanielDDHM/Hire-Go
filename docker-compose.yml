@@ -1,6 +1,23 @@
 version: "3.9"
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_hire_go
+    environment:
+      DB_HOST: postgres
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: ${DB_USER}
+      DB_DB: ${DB_DB}
+    ports:
+      - "4000:4000" # Mapeia a porta 8080 do container para 8081 no host
+    depends_on:
+      - postgres # Aguarda o Postgres estar disponível antes de iniciar o app
+    restart: unless-stopped # Reinicia o container se ele falhar
+    command: ./main # Comando para iniciar o app
+
   postgres:
     container_name: db_hire_go
     image: postgres:14.5
