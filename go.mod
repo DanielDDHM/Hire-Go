@@ -5,9 +5,17 @@ go 1.23.0
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.10.0
+	github.com/gorilla/websocket v1.5.3
 	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.11
+)
+
+require (
+	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/go-sql-driver/mysql v1.8.1 // indirect
+	github.com/google/uuid v1.3.0 // indirect
+	gorm.io/driver/mysql v1.5.6 // indirect
 )
 
 require (
@@ -46,4 +54,5 @@ require (
 	golang.org/x/text v0.19.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/datatypes v1.2.4
 )

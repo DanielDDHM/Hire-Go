@@ -46,6 +46,10 @@ func (s *Server) Run(db *gorm.DB) {
 
 		handler.User(v1.Group("/user"), db)
 		handler.Auth(v1.Group("/auth"), db)
+
+		v1.GET("/ws", func(ctx *gin.Context) {
+			HandleWebSocket(ctx.Writer, ctx.Request)
+		})
 	}
 	log.Print("Server is on port:", s.port)
 	log.Fatal(router.Run(":" + s.port))
