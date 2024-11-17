@@ -7,9 +7,9 @@ CREATE TABLE Models (
     weight DECIMAL(4,2),
     bio TEXT,
     photos TEXT[],
-    address: VARCHAR(50),
-    city: VARCHAR(25),
-    country: VARCHAR(25),
+    address VARCHAR(50),
+    city VARCHAR(25),
+    country VARCHAR(25),
     created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -19,9 +19,9 @@ CREATE TABLE Bookers (
     user_id INT REFERENCES Users(id) ON DELETE CASCADE,
     name VARCHAR(255),
     phone VARCHAR(20),
-    address: VARCHAR(50),
-    city: VARCHAR(25),
-    country: VARCHAR(25),
+    address VARCHAR(50),
+    city VARCHAR(25),
+    country VARCHAR(25),
     created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
