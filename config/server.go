@@ -40,16 +40,19 @@ func (s *Server) Run(db *gorm.DB) {
 				"Message": "I'm Alive",
 			})
 		})
+
+		v1.GET("/ws", func(ctx *gin.Context) {
+			HandleWebSocket(ctx.Writer, ctx.Request)
+		})
+
 		roleGroup := v1.Group("/role")
 		roleGroup.Use(middleware.AuthMiddleware(db, "Admin"))
 		handler.Role(roleGroup, db)
 
 		handler.User(v1.Group("/user"), db)
 		handler.Auth(v1.Group("/auth"), db)
-
-		v1.GET("/ws", func(ctx *gin.Context) {
-			HandleWebSocket(ctx.Writer, ctx.Request)
-		})
+		handler.Model(v1.Group("/model"), db)
+		handler.Booker(v1.Group("/booker"), db)
 	}
 	log.Print("Server is on port:", s.port)
 	log.Fatal(router.Run(":" + s.port))
