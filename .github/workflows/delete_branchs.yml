@@ -1,0 +1,24 @@
+name: Delete branches after merge
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - serverless
+
+jobs:
+  delete-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Delete merged branches
+        run: |
+          git fetch --all --prune
+          for branch in $(git branch -r --merged | grep -vE "origin/(main|dev|serverless)$"); do
+            branch_name=${branch#origin/}
+            echo "Deleting $branch_name..."
+            git push origin --delete $branch_name
+          done
