@@ -1,0 +1,33 @@
+name: Run Tests on Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+        - main
+        - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout o código do repositório
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Configurar o ambiente Go
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      # Baixar as dependências
+      - name: Install Dependencies
+        run: |
+          go mod tidy
+
+      # Executar os testes
+      # - name: Run Tests
+      #   run: |
+      #     go test ./... -v
