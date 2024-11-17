@@ -34,6 +34,7 @@ func RegisterAsBooker(db *gorm.DB) gin.HandlerFunc {
 				"address": booker.Address,
 				"city":    booker.City,
 				"country": booker.Country,
+				"phone":   booker.Phone,
 			}).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
