@@ -11,11 +11,11 @@ var validate = validator.New()
 
 func BindAndValidate(c *gin.Context, model interface{}) bool {
 	if err := c.Bind(model); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "location": "Bind-validate"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return false
 	}
 	if validationErr := validate.Struct(model); validationErr != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error(), "location": "validation"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return false
 	}
 	return true

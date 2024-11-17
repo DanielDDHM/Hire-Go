@@ -18,7 +18,7 @@ func CreateRole(db *gorm.DB) gin.HandlerFunc {
 		}
 
 		if err := db.Create(&role).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "db"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -31,7 +31,7 @@ func GetRoles(db *gorm.DB) gin.HandlerFunc {
 		var roles []models.Role
 
 		if err := db.Find(&roles).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "db"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 

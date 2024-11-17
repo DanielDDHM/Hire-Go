@@ -20,19 +20,19 @@ func LoginUser(db *gorm.DB) gin.HandlerFunc {
 
 		var user models.User
 		if err := db.Where("email = ?", req.Email).First(&user).Error; err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error(), "location": "db"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 			return
 		}
 
 		_, err := utils.CheckPasswordHash(req.Password, user.Password)
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error(), "location": "CheckPasswordHash"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 			return
 		}
 
 		token, err := middleware.GenerateJWT(&user)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "location": "GenerateJWT"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 

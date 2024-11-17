@@ -12,6 +12,7 @@ func main() {
 	db, err := database.ConnectDB()
 	if err != nil {
 		log.Fatal(err.Error())
+		return
 	}
 	server.Run(db)
 }
